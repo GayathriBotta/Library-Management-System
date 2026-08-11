@@ -1,0 +1,590 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Library Dashboard</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+    <style>
+body {
+    background-image: url("images/dashboard-bg.png") !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    background-attachment: fixed !important;
+    background-color: transparent !important;
+}
+
+.dashboard {
+    background: transparent !important;
+}
+</style>
+<style>
+    .dashboard-hero {
+        box-shadow:
+            0 0 15px rgba(255, 255, 255, 0.20),
+            0 0 35px rgba(100, 180, 255, 0.18),
+            0 0 70px rgba(100, 180, 255, 0.10);
+
+        border: 1px solid rgba(255, 255, 255, 0.25);
+
+        transition: 0.4s ease;
+    }
+
+    .dashboard-hero:hover {
+        box-shadow:
+            0 0 20px rgba(12, 149, 207, 0.3),
+            0 0 45px rgba(100, 180, 255, 0.30),
+            0 0 90px rgba(100, 180, 255, 0.18);
+
+        transform: translateY(-3px);
+    }
+</style>
+<style>
+    .dashboard-hero {
+        background: rgba(16, 219, 43, 0.18) !important;
+
+        border: 1px solid rgba(255, 255, 255, 0.45);
+
+        box-shadow:
+            0 0 20px rgba(255, 255, 255, 0.35),
+            0 0 45px rgba(100, 180, 255, 0.30),
+            0 0 80px rgba(100, 180, 255, 0.18);
+
+        backdrop-filter: blur(3px);
+        -webkit-backdrop-filter: blur(3px);
+
+        transition: 0.4s ease;
+    }
+
+    .dashboard-hero:hover {
+        background: rgba(199, 36, 36, 0.25) !important;
+
+        box-shadow:
+            0 0 25px rgba(100, 5, 5, 0.45),
+            0 0 55px rgba(100, 180, 255, 0.40),
+            0 0 100px rgba(100, 180, 255, 0.25);
+    }
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+    .dashboard-hero h1 {
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: 50px;
+    font-weight: 700;
+    letter-spacing: 1px;
+
+    text-shadow:
+        0 0 10px rgba(255,255,255,0.5),
+        0 0 25px rgba(255,255,255,0.25);
+
+    min-height: 60px;
+
+    animation: welcomeGlow 2.5s ease-in-out infinite;
+}
+
+@keyframes welcomeGlow {
+
+    0%, 100% {
+        transform: translateY(0);
+        text-shadow:
+            0 0 10px rgba(255,255,255,0.4),
+            0 0 20px rgba(255,255,255,0.2);
+    }
+
+    50% {
+        transform: translateY(-6px);
+        text-shadow:
+            0 0 15px rgba(255,255,255,0.8),
+            0 0 35px rgba(100,180,255,0.6);
+    }
+
+}
+</style>
+<style>
+.dashboard-hero h1 {
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: 50px;
+    font-weight: 700;
+    letter-spacing: 1px;
+
+    text-shadow:
+        0 0 10px rgba(255,255,255,0.5),
+        0 0 25px rgba(255,255,255,0.25);
+
+    min-height: 60px;
+}
+</style>
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         NAVIGATION
+    ========================== -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            📚 Library Management
+        </div>
+
+        <div class="nav-links">
+
+            <a href="dashboard.html">Dashboard</a>
+
+            <a href="books.html">Books</a>
+
+            <a href="students.html">Students</a>
+
+            <a href="issue.html">Issue Book</a>
+
+            <a href="return.html">Return Book</a>
+
+            <a href="index.html">Logout</a>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- =========================
+         DASHBOARD HERO
+    ========================== -->
+
+    <main class="dashboard">
+
+        <section class="dashboard-hero">
+
+            <div class="hero-content">
+
+                <p class="hero-label">
+                    📖 LIBRARY MANAGEMENT SYSTEM
+                </p>
+
+                <h1>Welcome to Your Library</h1>
+                <p class="hero-description">
+                    Manage books, students, borrowing and returns
+                    efficiently from one place.
+                </p>
+
+                <div class="hero-buttons">
+
+                    <a href="books.html" class="hero-btn primary-btn">
+                        📚 Manage Books
+                    </a>
+
+                    <a href="issue.html" class="hero-btn secondary-btn">
+                        📖 Issue a Book
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             STATISTICS
+        ========================== -->
+
+        <section class="dashboard-section">
+
+            <div class="section-title">
+
+                <div>
+                    <p class="section-label">OVERVIEW</p>
+
+                    <h2>Library Statistics</h2>
+                </div>
+
+            </div>
+
+
+            <div class="stats-container">
+
+
+                <!-- Total Books -->
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        📚
+                    </div>
+
+                    <div class="stat-info">
+
+                        <p>Total Books</p>
+
+                        <h2 id="totalBooks">0</h2>
+
+                        <span>
+                            Books in library
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Available Books -->
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        📖
+                    </div>
+
+                    <div class="stat-info">
+
+                        <p>Available Books</p>
+
+                        <h2 id="availableBooks">0</h2>
+
+                        <span>
+                            Ready to issue
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Students -->
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        👨‍🎓
+                    </div>
+
+                    <div class="stat-info">
+
+                        <p>Total Students</p>
+
+                        <h2 id="totalStudents">0</h2>
+
+                        <span>
+                            Registered students
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Issued Books -->
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        📋
+                    </div>
+
+                    <div class="stat-info">
+
+                        <p>Issued Books</p>
+
+                        <h2 id="issuedBooks">0</h2>
+
+                        <span>
+                            Currently borrowed
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             QUICK ACTIONS
+        ========================== -->
+
+        <section class="dashboard-section">
+
+            <div class="section-title">
+
+                <div>
+
+                    <p class="section-label">
+                        SHORTCUTS
+                    </p>
+
+                    <h2>Quick Actions</h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="action-container">
+
+
+                <a href="books.html" class="action-card">
+
+                    <div class="action-icon">
+                        📚
+                    </div>
+
+                    <div>
+
+                        <h3>Manage Books</h3>
+
+                        <p>
+                            Add, view and manage library books.
+                        </p>
+
+                    </div>
+
+                    <span class="action-arrow">
+                        →
+                    </span>
+
+                </a>
+
+
+
+                <a href="students.html" class="action-card">
+
+                    <div class="action-icon">
+                        👨‍🎓
+                    </div>
+
+                    <div>
+
+                        <h3>Manage Students</h3>
+
+                        <p>
+                            Add and manage registered students.
+                        </p>
+
+                    </div>
+
+                    <span class="action-arrow">
+                        →
+                    </span>
+
+                </a>
+
+
+
+                <a href="issue.html" class="action-card">
+
+                    <div class="action-icon">
+                        📖
+                    </div>
+
+                    <div>
+
+                        <h3>Issue Book</h3>
+
+                        <p>
+                            Issue books to registered students.
+                        </p>
+
+                    </div>
+
+                    <span class="action-arrow">
+                        →
+                    </span>
+
+                </a>
+
+
+
+                <a href="return.html" class="action-card">
+
+                    <div class="action-icon">
+                        🔄
+                    </div>
+
+                    <div>
+
+                        <h3>Return Book</h3>
+
+                        <p>
+                            Process returned library books.
+                        </p>
+
+                    </div>
+
+                    <span class="action-arrow">
+                        →
+                    </span>
+
+                </a>
+
+
+            </div>
+
+        </section>
+
+
+
+      
+
+
+    </main>
+
+
+
+    <!-- =========================
+         DASHBOARD JAVASCRIPT
+    ========================== -->
+
+    <script>
+
+        const API_URL = "http://localhost:5000/api";
+
+
+        async function loadDashboard() {
+
+            try {
+
+                /* =========================
+                   GET BOOKS
+                ========================== */
+
+                const booksResponse =
+                    await fetch(`${API_URL}/books`);
+
+                if (!booksResponse.ok) {
+                    throw new Error("Failed to load books");
+                }
+
+                const books =
+                    await booksResponse.json();
+
+
+                document.getElementById("totalBooks")
+                    .textContent = books.length;
+
+
+                let available = 0;
+
+
+                books.forEach(book => {
+
+                    available += Number(
+                        book.available || 0
+                    );
+
+                });
+
+
+                document.getElementById("availableBooks")
+                    .textContent = available;
+
+
+
+                /* =========================
+                   GET STUDENTS
+                ========================== */
+
+                const studentsResponse =
+                    await fetch(`${API_URL}/students`);
+
+
+                if (!studentsResponse.ok) {
+                    throw new Error("Failed to load students");
+                }
+
+
+                const students =
+                    await studentsResponse.json();
+
+
+                document.getElementById("totalStudents")
+                    .textContent = students.length;
+
+
+
+                /* =========================
+                   GET ISSUES
+                ========================== */
+
+                const issuesResponse =
+                    await fetch(`${API_URL}/issues`);
+
+
+                if (!issuesResponse.ok) {
+                    throw new Error("Failed to load issues");
+                }
+
+
+                const issues =
+                    await issuesResponse.json();
+
+
+                const issued =
+                    issues.filter(
+                        issue =>
+                            issue.status === "Issued"
+                    );
+
+
+                document.getElementById("issuedBooks")
+                    .textContent = issued.length;
+
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Dashboard loading error:",
+                    error
+                );
+
+            }
+
+        }
+
+
+
+        /* =========================
+           LOAD DASHBOARD
+        ========================== */
+
+        loadDashboard();
+
+
+    </script>
+    <script>
+
+    const API_URL = "http://localhost:5000/api";
+
+    async function loadDashboard() {
+        // your existing code...
+    }
+
+    loadDashboard();
+
+</script>
+
+
+</body>
+
+</html>
+```

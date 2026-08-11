@@ -1,0 +1,174 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Return Book - Library Management</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+
+<!-- ==============================
+     NAVIGATION
+============================== -->
+
+<nav class="navbar">
+
+    <div class="logo">
+        📚 Library Management System
+    </div>
+
+    <div class="nav-links">
+
+        <a href="dashboard.html">
+            Dashboard
+        </a>
+
+        <a href="books.html">
+            Books
+        </a>
+
+        <a href="students.html">
+            Students
+        </a>
+
+        <a href="issue.html">
+            Issue Book
+        </a>
+
+        <a href="return.html">
+            Return Book
+        </a>
+
+    </div>
+
+</nav>
+
+
+<!-- ==============================
+     MAIN CONTENT
+============================== -->
+
+<div class="container">
+
+
+    <!-- ==============================
+         RETURN BOOK
+    ============================== -->
+
+    <div class="form-card">
+
+        <h2>↩️ Return Book</h2>
+
+        <p id="message"></p>
+
+        <div class="form-grid">
+
+            <div class="form-group">
+
+                <label for="issueSelect">
+                    Select Issued Book
+                </label>
+
+                <select id="issueSelect">
+
+                    <option value="">
+                        -- Select Issued Book --
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <button
+            type="button"
+            class="btn add-btn"
+            onclick="returnBook()">
+
+            ↩️ Return Book
+
+        </button>
+
+    </div>
+
+
+    <!-- ==============================
+         CURRENTLY ISSUED BOOKS
+    ============================== -->
+
+    <div class="table-card">
+
+        <div class="section-header">
+
+            <h2>
+                📋 Currently Issued Books
+            </h2>
+
+            <button
+                type="button"
+                class="btn refresh-btn"
+                onclick="loadIssues()">
+
+                🔄 Refresh
+
+            </button>
+
+        </div>
+
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>Student</th>
+                        <th>Book</th>
+                        <th>Issue Date</th>
+                        <th>Status</th>
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="issuesTableBody">
+
+                    <tr>
+                        <td colspan="4">
+                            Loading issued books...
+                        </td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ==============================
+     RETURN BOOK JAVASCRIPT
+============================== -->
+
+<script src="js/return.js"></script>
+
+</body>
+
+</html>

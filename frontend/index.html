@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Management System</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+.login-box {
+    background: rgba(20, 30, 48, 0.10) !important;
+
+    border-radius: 22px;
+
+    border: 1px solid rgba(255, 255, 255, 0.25);
+
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.35);
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    padding: 40px;
+}
+
+.login-box h1 {
+    color: white !important;
+}
+
+.login-box .subtitle {
+    color: #e0e7ef !important;
+}
+
+.login-box label {
+    color: white !important;
+}
+
+.login-box input {
+    background: rgba(255, 255, 255, 0.10) !important;
+    color: white !important;
+    border: 1px solid rgba(255, 255, 255, 0.35) !important;
+}
+
+.login-box input::placeholder {
+    color: #d5dbe3 !important;
+}
+
+.login-box .btn {
+    background: rgba(255, 255, 255, 0.90) !important;
+    color: #243b55 !important;
+}
+</style>
+</head>
+
+<body>
+
+    <div class="login-container">
+
+        <div class="login-box">
+
+            <h1>📚 Library Management System</h1>
+
+            <p class="subtitle">Library Management Portal</p>
+
+            <form id="loginForm">
+
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input
+                        type="text"
+                        id="username"
+                        placeholder="Enter username"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Enter password"
+                        required
+                    >
+                </div>
+
+                <button type="submit" class="btn">
+                    Login
+                </button>
+
+            </form>
+
+            <p id="loginMessage"></p>
+
+        </div>
+
+    </div>
+
+    <script>
+        document.getElementById("loginForm").addEventListener("submit", function(event) {
+
+            event.preventDefault();
+
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+            const message = document.getElementById("loginMessage");
+
+            /*
+             * Simple librarian login for the college mini-project.
+             *
+             * Username: admin
+             * Password: admin123
+             */
+
+            if (username === "admin" && password === "admin123") {
+
+                message.textContent = "Login successful!";
+                message.className = "success";
+
+                setTimeout(() => {
+                    window.location.href = "dashboard.html";
+                }, 500);
+
+            } else {
+
+                message.textContent = "Invalid username or password.";
+                message.className = "error";
+
+            }
+
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Issue Book - Library Management</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+
+<!-- ==============================
+     NAVIGATION
+============================== -->
+
+<nav class="navbar">
+
+    <div class="logo">
+        📚 Library Management System
+    </div>
+
+    <div class="nav-links">
+
+        <a href="dashboard.html">Dashboard</a>
+
+        <a href="books.html">Books</a>
+
+        <a href="students.html">Students</a>
+
+        <a href="issue.html">Issue Book</a>
+
+        <a href="return.html">Return Book</a>
+
+    </div>
+
+</nav>
+
+
+<!-- ==============================
+     PAGE CONTAINER
+============================== -->
+
+<div class="page-container">
+
+
+    <!-- ==============================
+         ISSUE BOOK
+    ============================== -->
+
+    <div class="form-card">
+
+        <h2>📖 Issue Book</h2>
+
+        <p id="message"></p>
+
+
+        <form id="issueForm">
+
+            <div class="form-grid">
+
+
+                <!-- STUDENT -->
+
+                <div class="form-group">
+
+                    <label for="studentSelect">
+                        Select Student
+                    </label>
+
+                    <select id="studentSelect" required>
+
+                        <option value="">
+                            -- Select Student --
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- BOOK -->
+
+                <div class="form-group">
+
+                    <label for="bookSelect">
+                        Select Book
+                    </label>
+
+                    <select id="bookSelect" required>
+
+                        <option value="">
+                            -- Select Book --
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="btn add-btn">
+
+                📚 Issue Book
+
+            </button>
+
+        </form>
+
+    </div>
+
+
+
+    <!-- ==============================
+         ISSUED BOOKS
+    ============================== -->
+
+    <div class="table-card">
+
+
+        <div class="section-header">
+
+            <h2>
+                📋 Issued Books
+            </h2>
+
+            <button
+                type="button"
+                class="btn refresh-btn"
+                onclick="loadIssues()">
+
+                🔄 Refresh
+
+            </button>
+
+        </div>
+
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Student</th>
+
+                        <th>Book</th>
+
+                        <th>Issue Date</th>
+
+                        <th>Status</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="issuesTableBody">
+
+                    <tr>
+
+                        <td colspan="4">
+                            Loading issued books...
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+
+<!-- ==============================
+     JAVASCRIPT
+============================== -->
+
+<script>
+
+const STUDENTS_API =
+    "http://localhost:5000/api/students";
+
+const BOOKS_API =
+    "http://localhost:5000/api/books";
+
+const ISSUES_API =
+    "http://localhost:5000/api/issues";
+
+
+
+/* =================================
+   LOAD PAGE
+================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        loadStudents();
+
+        loadBooks();
+
+        loadIssues();
+
+    }
+);
+
+
+
+/* =================================
+   LOAD STUDENTS
+================================= */
+
+async function loadStudents() {
+
+    const select =
+        document.getElementById("studentSelect");
+
+    try {
+
+        const response =
+            await fetch(STUDENTS_API);
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Failed to load students"
+            );
+
+        }
+
+        const students =
+            await response.json();
+
+
+        select.innerHTML = `
+            <option value="">
+                -- Select Student --
+            </option>
+        `;
+
+
+        students.forEach(student => {
+
+            const option =
+                document.createElement("option");
+
+            option.value =
+                student._id;
+
+            option.textContent =
+                `${student.studentId} - ${student.name}`;
+
+            select.appendChild(option);
+
+        });
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        document.getElementById("message")
+            .textContent =
+            "❌ Could not load students.";
+
+    }
+
+}
+
+
+
+/* =================================
+   LOAD BOOKS
+================================= */
+
+async function loadBooks() {
+
+    const select =
+        document.getElementById("bookSelect");
+
+    try {
+
+        const response =
+            await fetch(BOOKS_API);
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Failed to load books"
+            );
+
+        }
+
+        const books =
+            await response.json();
+
+
+        select.innerHTML = `
+            <option value="">
+                -- Select Book --
+            </option>
+        `;
+
+
+        books.forEach(book => {
+
+            if (Number(book.available) > 0) {
+
+                const option =
+                    document.createElement("option");
+
+                option.value =
+                    book._id;
+
+                option.textContent =
+                    `${book.title} - Available: ${book.available}`;
+
+                select.appendChild(option);
+
+            }
+
+        });
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        document.getElementById("message")
+            .textContent =
+            "❌ Could not load books.";
+
+    }
+
+}
+
+
+
+/* =================================
+   ISSUE BOOK
+================================= */
+
+document
+    .getElementById("issueForm")
+    .addEventListener(
+        "submit",
+        async function (event) {
+
+            event.preventDefault();
+
+
+            const studentId =
+                document.getElementById(
+                    "studentSelect"
+                ).value;
+
+
+            const bookId =
+                document.getElementById(
+                    "bookSelect"
+                ).value;
+
+
+            try {
+
+                const response =
+                    await fetch(
+                        ISSUES_API,
+                        {
+
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body: JSON.stringify({
+
+                                studentId:
+                                    studentId,
+
+                                bookId:
+                                    bookId
+
+                            })
+
+                        }
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        data.message ||
+                        "Failed to issue book"
+                    );
+
+                }
+
+
+                document.getElementById(
+                    "message"
+                ).textContent =
+                    "✅ Book issued successfully!";
+
+
+                document.getElementById(
+                    "message"
+                ).className =
+                    "success";
+
+
+                document.getElementById(
+                    "issueForm"
+                ).reset();
+
+
+                loadBooks();
+
+                loadIssues();
+
+            }
+
+            catch (error) {
+
+                console.error(error);
+
+
+                document.getElementById(
+                    "message"
+                ).textContent =
+                    "❌ " + error.message;
+
+
+                document.getElementById(
+                    "message"
+                ).className =
+                    "error";
+
+            }
+
+        }
+    );
+
+
+
+/* =================================
+   LOAD ISSUES
+================================= */
+
+async function loadIssues() {
+
+    const table =
+        document.getElementById(
+            "issuesTableBody"
+        );
+
+
+    try {
+
+        const response =
+            await fetch(ISSUES_API);
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Failed to load issues"
+            );
+
+        }
+
+
+        const issues =
+            await response.json();
+
+
+        table.innerHTML = "";
+
+
+        if (issues.length === 0) {
+
+            table.innerHTML = `
+                <tr>
+
+                    <td colspan="4">
+                        No books issued yet.
+                    </td>
+
+                </tr>
+            `;
+
+            return;
+
+        }
+
+
+        issues.forEach(issue => {
+
+            const row =
+                document.createElement("tr");
+
+
+            const student =
+                issue.studentId;
+
+
+            const book =
+                issue.bookId;
+
+
+            const issueDate =
+                issue.issueDate
+                    ? new Date(
+                        issue.issueDate
+                    ).toLocaleDateString()
+                    : "-";
+
+
+            row.innerHTML = `
+
+                <td>
+                    ${
+                        student
+                            ? student.name
+                            : "Unknown"
+                    }
+                </td>
+
+
+                <td>
+                    ${
+                        book
+                            ? book.title
+                            : "Unknown"
+                    }
+                </td>
+
+
+                <td>
+                    ${issueDate}
+                </td>
+
+
+                <td>
+                    ${issue.status}
+                </td>
+
+            `;
+
+
+            table.appendChild(row);
+
+        });
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+
+        table.innerHTML = `
+
+            <tr>
+
+                <td colspan="4">
+                    ❌ Could not load issued books.
+                </td>
+
+            </tr>
+
+        `;
+
+    }
+
+}
+
+</script>
+
+
+</body>
+
+</html>

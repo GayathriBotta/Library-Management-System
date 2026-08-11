@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Students - Library Management</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+    /* Student form label colors */
+
+    .form-group:nth-child(1) label {
+        color: #9f2909;;
+    }
+
+    .form-group:nth-child(2) label {
+        color: #cf2c07;;
+    }
+
+    .form-group:nth-child(3) label {
+        color: #c72302;;
+    }
+
+    .form-group:nth-child(4) label {
+        color: #eb1607;
+    }
+
+    .form-group:nth-child(5) label {
+        color: #ee3107;;
+    }
+
+    .form-group:nth-child(6) label {
+        color: #df0101;;
+    }
+</style>
+
+</head>
+
+<body>
+
+
+<!-- NAVBAR -->
+
+<nav class="navbar">
+
+    <div class="logo">
+        📚 Library Management System
+    </div>
+
+    <div class="nav-links">
+
+        <a href="dashboard.html">Dashboard</a>
+        <a href="books.html">Books</a>
+        <a href="students.html">Students</a>
+        <a href="issue.html">Issue Book</a>
+        <a href="return.html">Return Book</a>
+
+    </div>
+
+</nav>
+
+
+<!-- ADD STUDENT -->
+
+<div class="form-card">
+
+    <h2>➕ Add Student</h2>
+
+    <p id="message"></p>
+
+    <form id="studentForm">
+
+        <div class="form-grid">
+
+            <div class="form-group">
+
+                <label for="studentId">
+                    Student ID
+                </label>
+
+                <input
+                    type="text"
+                    id="studentId"
+                    placeholder="Enter Student ID"
+                    required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="name">
+                    Student Name
+                </label>
+
+                <input
+                    type="text"
+                    id="name"
+                    placeholder="Enter Student Name"
+                    required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="email">
+                    Email
+                </label>
+
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="Enter Email"
+                    required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="phone">
+                    Phone Number
+                </label>
+
+                <input
+                    type="text"
+                    id="phone"
+                    placeholder="Enter Phone Number"
+                    required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="department">
+                    Department
+                </label>
+
+                <input
+                    type="text"
+                    id="department"
+                    placeholder="Enter Department"
+                    required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="year">
+                    Year
+                </label>
+
+                <input
+                    type="number"
+                    id="year"
+                    placeholder="Enter Year"
+                    min="1"
+                    max="5"
+                    required>
+
+            </div>
+
+        </div>
+
+
+        <button
+            type="submit"
+            class="btn add-btn">
+
+            ➕ Add Student
+
+        </button>
+
+    </form>
+
+</div>
+
+
+<!-- ALL STUDENTS -->
+
+<div class="table-card">
+
+    <div class="section-header">
+
+        <h2>👨‍🎓 All Students</h2>
+
+        <button
+            type="button"
+            class="btn refresh-btn"
+            onclick="loadStudents()">
+
+            🔄 Refresh
+
+        </button>
+
+    </div>
+
+
+    <div class="table-container">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Student ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Department</th>
+                    <th>Year</th>
+                    <th>Action</th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody id="studentsTableBody">
+
+                <tr>
+
+                    <td colspan="7">
+                        Loading students...
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+
+<!-- JAVASCRIPT -->
+
+<script src="js/student.js"></script>
+
+</body>
+
+</html>
